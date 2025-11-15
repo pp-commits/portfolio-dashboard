@@ -1,8 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+First, install dependencies:
+```bash
+npm install --legacy-peer-deps
+# or
+yarn install
+# or
+pnpm install
+```
+Second build the database client app will use to talk to DB
+```bash
+npx prisma generate
 
-First, run the development server:
+npx prisma migrate dev --name add_transaction_table
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
@@ -16,9 +30,37 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+API logic lives inside:
+app/api/portfolio/route.ts
+app/api/google/route.ts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GET /api/portfolio
+
+Returns:
+
+Portfolio list
+
+Sector summary
+
+Totals
+
+GET /api/google?symbol=TCS:NSE
+
+Fallback scraper for:
+
+P/E ratio
+
+EPS
+
+Financial data fetching utilities are located in:
+lib/market.ts
+lib/usePortfolio.ts
+
+Visualizations
+
+Portfolio Pie Chart (portfolio weight distribution)
+
+Sector Bar Chart (investment vs present value per sector)
 
 ## Learn More
 

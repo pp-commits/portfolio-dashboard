@@ -1,30 +1,50 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+// GET /api/transactions/[id]
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
+
   const transaction = await prisma.transaction.findUnique({
-    where: { id: Number(params.id) },
+    where: { id: Number(id) },
   });
-  if (!transaction)
+
+  if (!transaction) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
   return NextResponse.json(transaction);
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+// PUT /api/transactions/[id]
+export async function PUT(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
   const body = await req.json();
+
   const updated = await prisma.transaction.update({
-    where: { id: Number(params.id) },
+    where: { id: Number(id) },
     data: body,
   });
+
   return NextResponse.json(updated);
 }
 
+// DELETE /api/transactions/[id]
 export async function DELETE(
-  _: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
+
   await prisma.transaction.delete({
-    where: { id: Number(params.id) },
+    where: { id: Number(id) },
   });
+
   return NextResponse.json({ message: "Deleted successfully" });
 }

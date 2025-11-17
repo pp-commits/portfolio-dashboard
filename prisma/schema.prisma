@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["postgresqlExtensions"]
 }
 
@@ -10,7 +10,7 @@ datasource db {
 
 model Holding {
   id            Int      @id @default(autoincrement())
-  symbol        String   // e.g., "TCS.NS"
+  symbol        String
   name          String
   exchange      String
   purchasePrice Float

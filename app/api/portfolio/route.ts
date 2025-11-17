@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { fetchPricesForSymbols } from "@/lib/market";
 import axios from "axios";
-
+export const runtime = "nodejs";
 /**
  * Fetch Google Finance fallback P/E + EPS
  */

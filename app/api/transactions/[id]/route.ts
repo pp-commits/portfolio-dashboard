@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
+export const runtime = "nodejs";
 // GET /api/transactions/[id]
 export async function GET(
   req: Request,
